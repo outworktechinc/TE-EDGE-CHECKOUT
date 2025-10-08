@@ -1,495 +1,363 @@
-# Universal Payments NextJS
+# Universal Packages Monorepo
 
-<p align="center">
-  <strong>A robust, enterprise-grade payment gateway integration package for NextJS applications</strong>
-</p>
+A collection of framework-agnostic packages for common functionality across Next.js, Angular, React, Vue, and other JavaScript frameworks.
 
-<p align="center">
-  <a href="#installation">Installation</a> •
-  <a href="#quick-start">Quick Start</a> •
-  <a href="#documentation">Documentation</a> •
-  <a href="#examples">Examples</a> •
-  <a href="#migration">Migration</a>
-</p>
+## 📦 Packages
+
+### ✅ [@your-org/payment-gateway](./packages/payment-gateway)
+
+**Status:** Production Ready
+
+Framework-agnostic payment gateway integration library supporting:
+- ✅ Stripe
+- ✅ Braintree
+- ✅ Authorize.Net
+- ✅ Dynamic gateway detection
+- ✅ Edge Checkout & Hosted Checkout
+- ✅ Card validation
+- ✅ 3D Secure (SCA)
+- ✅ Currency utilities
+- ✅ Transaction logging
+
+**Install:**
+```bash
+npm install @your-org/payment-gateway
+```
+
+**Docs:** [Payment Gateway Documentation](./packages/payment-gateway/README.md)
 
 ---
 
-## 🚀 Features
+### 🚧 [@your-org/sentry-integration](./packages/sentry-integration)
 
-- **🎯 Multi-Gateway Support**: Stripe, Braintree, and Authorize.Net
-- **⚛️ NextJS Optimized**: Built specifically for React/NextJS applications
-- **🔒 Type Safe**: Full TypeScript support with comprehensive interfaces
-- **🌳 Tree-Shakable**: Import only what you need for optimal bundle size
-- **🎨 Customizable**: Tailwind CSS styled components with theme support
-- **🔄 State Management**: Zustand-powered payment state
-- **🌍 Environment Aware**: Development and production modes with auto-detection
-- **📦 Easy Integration**: Simple setup with sensible defaults
-- **🔐 Security First**: PCI-compliant with sensitive data sanitization
-- **🧪 Well Tested**: Comprehensive test coverage with mocking support
-- **📚 Well Documented**: Extensive documentation and examples
+**Status:** Coming Soon
 
-## 📦 Installation
+Universal Sentry integration for error tracking and monitoring.
 
-### npm
-```bash
-npm install @your-company/universal-payments-nextjs
-```
+**Planned Features:**
+- Framework-agnostic Sentry initialization
+- Automatic error capturing
+- Performance monitoring
+- User context tracking
 
-### yarn
-```bash
-yarn add @your-company/universal-payments-nextjs
-```
+---
 
-### pnpm
-```bash
-pnpm add @your-company/universal-payments-nextjs
-```
+### 🚧 [@your-org/track-ids](./packages/track-ids)
 
-## ⚡ Quick Start
+**Status:** Coming Soon
 
-### 1. Basic Setup
+Universal tracking IDs management for analytics and user tracking.
 
-```tsx
-import { PaymentProcessor, createStripeConfig } from '@your-company/universal-payments-nextjs';
+**Planned Features:**
+- UTM parameter tracking
+- Session ID management
+- User ID tracking
+- Analytics integration
 
-function CheckoutPage() {
-  const config = createStripeConfig({
-    environment: 'development',
-    apiBaseUrl: 'https://your-api.com'
-  });
+---
 
-  const handlePaymentSuccess = (result) => {
-    console.log('Payment successful:', result.paymentIntent);
-    // Redirect to success page or update UI
-  };
+## 🚀 Quick Start
 
-  const handlePaymentError = (error) => {
-    console.error('Payment failed:', error.getUserMessage());
-    // Show error message to user
-  };
-
-  return (
-    <PaymentProcessor
-      config={config}
-      amount={99.99}
-      currency="USD"
-      customer={{ email: 'user@example.com' }}
-      onSuccess={handlePaymentSuccess}
-      onError={handlePaymentError}
-    />
-  );
-}
-```
-
-### 2. Environment Configuration
-
-#### Option A: Configuration Builder (Recommended)
-```tsx
-import { PaymentConfigBuilder } from '@your-company/universal-payments-nextjs';
-
-const config = new PaymentConfigBuilder()
-  .gateway('stripe')
-  .environment('production')
-  .apiBaseUrl(process.env.NEXT_PUBLIC_API_BASE_URL)
-  .stripe({
-    publishableKey: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-  })
-  .logging(true, 'info')
-  .timeout(30000)
-  .build();
-```
-
-#### Option B: Environment Helper
-```tsx
-import { EnvironmentConfigHelper } from '@your-company/universal-payments-nextjs';
-
-// Automatically reads from environment variables
-const config = EnvironmentConfigHelper.fromEnvironment('stripe');
-```
-
-### 3. Individual Gateway Components
-
-#### Stripe Checkout
-```tsx
-import { StripeCheckout, createStripeConfig } from '@your-company/universal-payments-nextjs';
-
-const config = createStripeConfig({
-  environment: 'production',
-  apiBaseUrl: 'https://your-api.com',
-  publishableKey: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-});
-
-<StripeCheckout
-  config={config}
-  amount={99.99}
-  onSuccess={handleSuccess}
-  onError={handleError}
-  customization={{
-    theme: 'dark',
-    buttonText: 'Complete Payment'
-  }}
-/>
-```
-
-#### Braintree Drop-in
-```tsx
-import { BraintreeDropIn, createBraintreeConfig } from '@your-company/universal-payments-nextjs';
-
-const config = createBraintreeConfig({
-  environment: 'sandbox',
-  apiBaseUrl: 'https://your-api.com'
-});
-
-<BraintreeDropIn
-  config={config}
-  amount={99.99}
-  onPaymentMethodCreated={handleBraintreeSuccess}
-  onError={handleError}
-/>
-```
-
-## 🔧 Configuration
-
-### Environment Variables
-
-Create a `.env.local` file in your NextJS project:
+### For Users (Install Specific Package)
 
 ```bash
-# Common
-NODE_ENV=development
-PAYMENT_API_BASE_URL=http://localhost:3000/api
+# Install only the payment gateway
+npm install @your-org/payment-gateway
 
-# Stripe
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
-STRIPE_WEBHOOK_SECRET=whsec_...
+# Or install sentry integration (when available)
+npm install @your-org/sentry-integration
 
-# Braintree
-BRAINTREE_MERCHANT_ID=your_merchant_id
-BRAINTREE_PUBLIC_KEY=your_public_key
-BRAINTREE_PRIVATE_KEY=your_private_key
-
-# Authorize.Net
-AUTHORIZE_NET_API_LOGIN_ID=your_api_login_id
-AUTHORIZE_NET_TRANSACTION_KEY=your_transaction_key
-AUTHORIZE_NET_CLIENT_KEY=your_client_key
+# Or install track-ids (when available)
+npm install @your-org/track-ids
 ```
 
-### Gateway Configuration
+Each package is **completely independent** - you only install what you need!
 
-Each gateway has specific configuration options:
+### For Developers (Working on Packages)
 
-```tsx
-// Stripe Configuration
-const stripeConfig = createStripeConfig({
-  environment: 'production',
-  apiBaseUrl: 'https://api.yoursite.com',
-  publishableKey: 'pk_live_...',
-  timeout: 30000,
-  retryAttempts: 3
-});
-
-// Braintree Configuration
-const braintreeConfig = createBraintreeConfig({
-  environment: 'production',
-  apiBaseUrl: 'https://api.yoursite.com',
-  merchantId: 'your_merchant_id',
-  timeout: 30000
-});
-
-// Authorize.Net Configuration
-const authorizeNetConfig = createAuthorizeNetConfig({
-  environment: 'production',
-  apiBaseUrl: 'https://api.yoursite.com',
-  apiLoginId: 'your_api_login_id',
-  clientKey: 'your_client_key'
-});
-```
-
-## 🎨 Styling & Customization
-
-### Tailwind CSS Integration
-
-Add the package to your `tailwind.config.js`:
-
-```javascript
-module.exports = {
-  content: [
-    "./src/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@your-company/universal-payments-nextjs/dist/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    extend: {
-      // Your custom theme
-    },
-  },
-  plugins: [],
-}
-```
-
-### Theme Customization
-
-```tsx
-<PaymentProcessor
-  config={config}
-  amount={99.99}
-  theme="dark"
-  customization={{
-    borderRadius: 12,
-    primaryColor: '#3b82f6',
-    fontFamily: 'Inter, sans-serif'
-  }}
-  className="custom-payment-form"
-/>
-```
-
-## 🔐 Security Features
-
-### Error Sanitization
-```tsx
-import { PaymentError, sanitizeErrorForLogging } from '@your-company/universal-payments-nextjs';
-
-const handleError = (error: PaymentError) => {
-  // Safe for logging - sensitive data removed
-  const sanitized = sanitizeErrorForLogging(error);
-  console.log(sanitized);
-
-  // User-friendly message
-  alert(error.getUserMessage());
-};
-```
-
-### Validation Utilities
-```tsx
-import { CardValidator, validatePaymentForm } from '@your-company/universal-payments-nextjs';
-
-// Validate individual fields
-const isValid = CardValidator.isValidCardNumber('4242424242424242');
-const brand = CardValidator.getCardBrand('4242424242424242'); // 'visa'
-
-// Validate entire form
-const result = validatePaymentForm({
-  cardNumber: '4242424242424242',
-  expiryMonth: '12',
-  expiryYear: '2025',
-  cvv: '123',
-  holderName: 'John Doe'
-});
-
-if (!result.isValid) {
-  console.log(result.errors);
-}
-```
-
-## 📋 Backend Requirements
-
-Your backend API should provide these endpoints:
-
-### Stripe
-```
-POST /stripe/createCheckoutSession
-GET  /stripe/retrieve-session/:sessionId
-POST /stripe/webhook (optional)
-```
-
-### Braintree
-```
-GET  /braintree/token
-POST /braintree/payment (optional)
-POST /braintree/webhook (optional)
-```
-
-### Authorize.Net
-```
-GET  /authorize-net/credentials
-POST /authorize-net/payment (optional)
-```
-
-## 🧪 Testing
-
-### Running Tests
 ```bash
-# Run all tests
-npm test
+# Clone the repository
+git clone https://github.com/your-org/universal-packages.git
+cd universal-packages
 
-# Run tests in watch mode
-npm run test:watch
+# Install all dependencies for all packages
+npm install
 
-# Generate coverage report
-npm run test:coverage
-```
-
-### Mock Implementation
-
-The package includes mock implementations for development:
-
-```tsx
-// Automatically uses mocks in development
-const config = createStripeConfig({
-  environment: 'development',
-  apiBaseUrl: 'http://localhost:3000/api'
-});
-
-// Mock responses will be used automatically
-```
-
-## 📚 Advanced Usage
-
-### Tree-Shaking
-
-Import only what you need:
-
-```tsx
-// Import specific gateway
-import { StripeService } from '@your-company/universal-payments-nextjs/stripe';
-
-// Import specific utilities
-import { CardValidator } from '@your-company/universal-payments-nextjs/utils/validation';
-
-// Import core types only
-import type { PaymentResult } from '@your-company/universal-payments-nextjs/core/types';
-```
-
-### Custom Error Handling
-
-```tsx
-import { PaymentError, PaymentErrorCode } from '@your-company/universal-payments-nextjs';
-
-const handleError = (error: PaymentError) => {
-  switch (error.code) {
-    case PaymentErrorCode.PAYMENT_DECLINED:
-      // Handle declined payment
-      showDeclinedMessage();
-      break;
-    case PaymentErrorCode.NETWORK_ERROR:
-      // Handle network issues
-      showNetworkError();
-      break;
-    default:
-      // Handle other errors
-      showGenericError(error.getUserMessage());
-  }
-};
-```
-
-### State Management
-
-```tsx
-import { usePaymentMethodStore } from '@your-company/universal-payments-nextjs';
-
-function PaymentComponent() {
-  const {
-    selectedPaymentMethod,
-    isProcessingPayment,
-    paymentError,
-    setSelectedPaymentMethod,
-    clearPaymentError
-  } = usePaymentMethodStore();
-
-  // Component logic
-}
-```
-
-### Logging Configuration
-
-```tsx
-import { PaymentLogger, createGatewayLogger } from '@your-company/universal-payments-nextjs';
-
-// Create custom logger
-const logger = new PaymentLogger('debug', true);
-
-// Create gateway-specific logger
-const stripeLogger = createGatewayLogger('stripe', 'info');
-```
-
-## 🔄 Migration Guide
-
-### From Custom Implementation
-
-1. **Install the package**
-   ```bash
-   npm install @your-company/universal-payments-nextjs
-   ```
-
-2. **Replace existing imports**
-   ```tsx
-   // Before
-   import PaymentProcessor from './components/PaymentProcessor';
-
-   // After
-   import { PaymentProcessor } from '@your-company/universal-payments-nextjs';
-   ```
-
-3. **Update configuration**
-   ```tsx
-   // Before
-   <PaymentProcessor gatewayName="stripe" apiBaseUrl="..." />
-
-   // After
-   const config = createStripeConfig({ ... });
-   <PaymentProcessor config={config} />
-   ```
-
-4. **Update error handling**
-   ```tsx
-   // Before
-   onError={(error: string) => console.error(error)}
-
-   // After
-   onError={(error: PaymentError) => console.error(error.getUserMessage())}
-   ```
-
-See [INTEGRATION-EXAMPLE.md](./INTEGRATION-EXAMPLE.md) for detailed migration steps.
-
-## 🛠️ Development
-
-### Building
-```bash
+# Build all packages
 npm run build
-```
 
-### Linting & Formatting
-```bash
+# Build specific package
+npm run build:payment
+
+# Test all packages
+npm run test
+
+# Lint all packages
 npm run lint
-npm run format
 ```
-
-### Type Checking
-```bash
-npm run type-check
-```
-
-### Release
-```bash
-# Patch release (1.0.1)
-npm run release:patch
-
-# Minor release (1.1.0)
-npm run release:minor
-
-# Major release (2.0.0)
-npm run release:major
-```
-
-## 📋 Requirements
-
-- **Node.js**: >= 16.x
-- **React**: >= 18.x
-- **NextJS**: >= 14.x
-- **TypeScript**: >= 5.x (optional but recommended)
-
-## 🤝 Support
-
-- **Documentation**: [Full Documentation](./docs/)
-- **Examples**: [Integration Examples](./INTEGRATION-EXAMPLE.md)
-- **Changelog**: [CHANGELOG.md](./CHANGELOG.md)
-- **Issues**: [GitHub Issues](https://github.com/your-company/universal-payments-nextjs/issues)
-
-## 📜 License
-
-Private - Company Use Only
 
 ---
 
-<p align="center">
-  Made with ❤️ for seamless payment processing
-</p>
+## 📁 Project Structure
+
+```
+universal-packages/
+├── packages/
+│   ├── payment-gateway/          # ✅ Production Ready
+│   │   ├── src/
+│   │   ├── dist/
+│   │   ├── examples/
+│   │   ├── package.json
+│   │   └── README.md
+│   │
+│   ├── sentry-integration/        # 🚧 Coming Soon
+│   │   ├── package.json
+│   │   └── README.md
+│   │
+│   └── track-ids/                 # 🚧 Coming Soon
+│       ├── package.json
+│       └── README.md
+│
+├── package.json                   # Root workspace config
+├── README.md                      # This file
+└── .gitignore
+```
+
+---
+
+## 🛠️ Available Scripts
+
+### Root Level
+
+```bash
+# Install dependencies for all packages
+npm install
+
+# Build all packages
+npm run build
+
+# Build specific packages
+npm run build:payment
+npm run build:sentry
+npm run build:track-ids
+
+# Test all packages
+npm run test
+
+# Test specific package
+npm run test:payment
+
+# Lint all packages
+npm run lint
+
+# Fix linting issues
+npm run lint:fix
+
+# Clean all build artifacts
+npm run clean
+
+# Publish specific package
+npm run publish:payment
+```
+
+### Individual Package Level
+
+```bash
+# Navigate to package
+cd packages/payment-gateway
+
+# Install dependencies
+npm install
+
+# Build
+npm run build
+
+# Test
+npm run test
+
+# Lint
+npm run lint
+```
+
+---
+
+## 🎯 Package Independence
+
+Each package in this monorepo is **completely independent**:
+
+✅ **Independent `package.json`** - Each has its own dependencies and version
+✅ **Independent publishing** - Publish packages separately
+✅ **Independent installation** - Users install only what they need
+✅ **Independent versioning** - Each package has its own version
+✅ **Independent documentation** - Each has complete docs
+
+Users who only need the payment gateway will **NOT** install Sentry or tracking packages!
+
+---
+
+## 📖 Package Documentation
+
+Each package has its own comprehensive documentation:
+
+| Package | Documentation |
+|---------|--------------|
+| Payment Gateway | [README.md](./packages/payment-gateway/README.md) |
+| | [Next.js Guide](./packages/payment-gateway/NEXTJS_IMPLEMENTATION_GUIDE.md) |
+| | [Angular Guide](./packages/payment-gateway/ANGULAR_IMPLEMENTATION_GUIDE.md) |
+| | [Gateway Detection](./packages/payment-gateway/GATEWAY_DETECTION.md) |
+| | [API Reference](./packages/payment-gateway/README.md#api-reference) |
+| Sentry Integration | [README.md](./packages/sentry-integration/README.md) |
+| Track IDs | [README.md](./packages/track-ids/README.md) |
+
+---
+
+## 🔧 Development Workflow
+
+### Adding a New Package
+
+1. Create package directory:
+```bash
+mkdir -p packages/your-new-package
+cd packages/your-new-package
+```
+
+2. Initialize package:
+```bash
+npm init -y
+```
+
+3. Update package.json with proper name:
+```json
+{
+  "name": "@your-org/your-new-package",
+  "version": "1.0.0"
+}
+```
+
+4. The package is automatically included in the workspace!
+
+### Working on a Package
+
+```bash
+# Navigate to package
+cd packages/payment-gateway
+
+# Make changes to src/
+
+# Build to test
+npm run build
+
+# Run tests
+npm run test
+
+# Lint code
+npm run lint:fix
+```
+
+### Publishing a Package
+
+```bash
+# From root, publish specific package
+npm run publish:payment
+
+# Or navigate to package and publish
+cd packages/payment-gateway
+npm publish
+```
+
+---
+
+## 🌟 Framework Support
+
+All packages are designed to work with:
+
+- ✅ **Next.js** (App Router & Pages Router)
+- ✅ **Angular** (14+)
+- ✅ **React**
+- ✅ **Vue**
+- ✅ **Vanilla JavaScript**
+- ✅ **TypeScript**
+
+Each package includes framework-specific integration guides!
+
+---
+
+## 📋 Package Checklist
+
+When creating a new package, ensure it has:
+
+- [ ] `package.json` with correct name and version
+- [ ] `README.md` with usage examples
+- [ ] `src/` directory with TypeScript source
+- [ ] `tsconfig.json` for TypeScript configuration
+- [ ] Build scripts for CommonJS and ESM
+- [ ] Type definitions (`.d.ts` files)
+- [ ] Tests
+- [ ] Examples directory
+- [ ] Framework-specific guides (Next.js, Angular, etc.)
+- [ ] Proper exports in main entry file
+- [ ] `.gitignore` for build artifacts
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! To contribute:
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+Please ensure:
+- All tests pass (`npm run test`)
+- Code is linted (`npm run lint`)
+- Documentation is updated
+- Examples are provided
+
+---
+
+## 🔐 Security
+
+If you discover a security vulnerability, please email security@your-org.com
+
+---
+
+## 📄 License
+
+MIT License - see [LICENSE](./LICENSE) file for details
+
+---
+
+## 🙋 Support
+
+- 📧 Email: support@your-org.com
+- 💬 GitHub Issues: [Create an issue](https://github.com/your-org/universal-packages/issues)
+- 📖 Documentation: [Package-specific docs](./packages)
+
+---
+
+## 🗺️ Roadmap
+
+### Current (v1.0)
+- ✅ Payment Gateway - Production ready
+- 🚧 Sentry Integration - In development
+- 🚧 Track IDs - Planned
+
+### Future (v2.0)
+- 📋 Form validation library
+- 📋 Authentication library
+- 📋 API client library
+- 📋 State management library
+- 📋 UI component library (framework-agnostic)
+
+---
+
+## ⭐ Show Your Support
+
+If you find these packages helpful, please give the repository a star!
+
+---
+
+**Made with ❤️ by Your Organization**

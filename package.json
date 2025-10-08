@@ -1,82 +1,38 @@
 {
-  "name": "@your-company/universal-payments-nextjs",
+  "name": "@your-org/universal-packages",
   "version": "1.0.0",
-  "description": "Universal payment gateway integration for NextJS applications",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "description": "Monorepo for universal packages - Payment Gateway, Sentry Integration, Track IDs, and more",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "build": "npm run clean && tsc",
-    "build:watch": "tsc --watch",
-    "dev": "npm run build:watch",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "lint": "eslint src --ext .ts,.tsx",
-    "lint:fix": "eslint src --ext .ts,.tsx --fix",
-    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,md}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,md}\"",
-    "type-check": "tsc --noEmit",
-    "clean": "rimraf dist",
-    "prepublishOnly": "npm run build && npm run test && npm run lint",
-    "prepack": "npm run build",
-    "version:patch": "npm version patch",
-    "version:minor": "npm version minor",
-    "version:major": "npm version major",
-    "version:prerelease": "npm version prerelease",
-    "release:patch": "npm run version:patch && npm publish",
-    "release:minor": "npm run version:minor && npm publish",
-    "release:major": "npm run version:major && npm publish",
-    "release:beta": "npm run version:prerelease --preid=beta && npm publish --tag beta",
-    "release:alpha": "npm run version:prerelease --preid=alpha && npm publish --tag alpha"
+    "build": "npm run build --workspaces",
+    "build:payment": "npm run build --workspace=packages/payment-gateway",
+    "build:sentry": "npm run build --workspace=packages/sentry-integration",
+    "build:track-ids": "npm run build --workspace=packages/track-ids",
+    "test": "npm run test --workspaces --if-present",
+    "test:payment": "npm run test --workspace=packages/payment-gateway --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "lint:fix": "npm run lint:fix --workspaces --if-present",
+    "clean": "npm run clean --workspaces --if-present",
+    "install:all": "npm install",
+    "publish:payment": "npm publish --workspace=packages/payment-gateway"
   },
-  "keywords": ["payments", "stripe", "braintree", "authorize.net", "nextjs", "react"],
-  "author": "Your Company",
-  "license": "PRIVATE",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-company/universal-payments-nextjs.git"
+    "url": "git+https://github.com/your-org/universal-packages.git"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
-  "peerDependencies": {
-    "react": ">=18.0.0",
-    "react-dom": ">=18.0.0",
-    "next": ">=14.0.0"
-  },
-  "dependencies": {
-    "@stripe/stripe-js": "^7.9.0",
-    "zustand": "^5.0.8"
-  },
+  "keywords": [
+    "monorepo",
+    "payment-gateway",
+    "sentry",
+    "tracking",
+    "universal-packages"
+  ],
+  "author": "Your Organization",
+  "license": "MIT",
   "devDependencies": {
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "@types/node": "^20.0.0",
-    "typescript": "^5.0.0",
-    "rimraf": "^5.0.0",
-
-    "eslint": "^8.0.0",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
-    "eslint-plugin-react": "^7.33.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-jsx-a11y": "^6.7.0",
-    "eslint-plugin-import": "^2.28.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.0",
-
-    "prettier": "^3.0.0",
-
-    "jest": "^29.0.0",
-    "@types/jest": "^29.0.0",
-    "ts-jest": "^29.0.0",
-    "@testing-library/react": "^14.0.0",
-    "@testing-library/jest-dom": "^6.0.0",
-    "@testing-library/user-event": "^14.0.0",
-    "jest-environment-jsdom": "^29.0.0"
-  },
-  "files": [
-    "dist",
-    "README.md"
-  ]
+    "rimraf": "^5.0.0"
+  }
 }

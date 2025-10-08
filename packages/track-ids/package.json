@@ -1,0 +1,28 @@
+{
+  "name": "@your-org/track-ids",
+  "version": "1.0.0",
+  "description": "Universal tracking IDs management for analytics, UTM parameters, and user tracking",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "echo 'Track IDs - coming soon'",
+    "test": "echo 'No tests yet'",
+    "lint": "echo 'No linting yet'"
+  },
+  "keywords": [
+    "tracking",
+    "analytics",
+    "utm",
+    "ids",
+    "cookies",
+    "session"
+  ],
+  "author": "Your Organization",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-org/universal-packages.git",
+    "directory": "packages/track-ids"
+  }
+}

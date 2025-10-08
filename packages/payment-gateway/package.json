@@ -1,0 +1,56 @@
+{
+  "name": "@your-org/payment-gateway",
+  "version": "1.0.0",
+  "description": "Framework-agnostic payment gateway integration library for Stripe, Braintree, and Authorize.Net",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "npm run clean && npm run build:cjs && npm run build:esm && npm run build:types",
+    "build:cjs": "tsc --module commonjs --outDir dist",
+    "build:esm": "tsc --module esnext --outDir dist/esm && echo '{\"type\":\"module\"}' > dist/esm/package.json",
+    "build:types": "tsc --emitDeclarationOnly --outDir dist",
+    "build:watch": "tsc --watch",
+    "clean": "rimraf dist",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "prepublishOnly": "npm run build && npm run test"
+  },
+  "keywords": [
+    "payment",
+    "gateway",
+    "stripe",
+    "braintree",
+    "authorize.net",
+    "nextjs",
+    "angular",
+    "react",
+    "framework-agnostic"
+  ],
+  "author": "Your Organization",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-org/payment-gateway.git"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.0",
+    "rimraf": "^5.0.0",
+    "eslint": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "jest": "^29.0.0",
+    "@types/jest": "^29.0.0",
+    "ts-jest": "^29.0.0"
+  },
+  "peerDependencies": {},
+  "dependencies": {}
+}

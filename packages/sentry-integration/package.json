@@ -1,0 +1,26 @@
+{
+  "name": "@your-org/sentry-integration",
+  "version": "1.0.0",
+  "description": "Universal Sentry integration package for error tracking and monitoring",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "echo 'Sentry integration - coming soon'",
+    "test": "echo 'No tests yet'",
+    "lint": "echo 'No linting yet'"
+  },
+  "keywords": [
+    "sentry",
+    "error-tracking",
+    "monitoring",
+    "logging"
+  ],
+  "author": "Your Organization",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-org/universal-packages.git",
+    "directory": "packages/sentry-integration"
+  }
+}
