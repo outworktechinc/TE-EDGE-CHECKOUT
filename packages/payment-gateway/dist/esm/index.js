@@ -411,3 +411,5 @@ export * from "./utils/card-icons";
 export * from "./utils/gateway-detection";
 export * from "./utils/stripe-session";
 export * from "./test-utils";
+// Default export for better bundler compatibility
+export default PaymentGatewayManager;

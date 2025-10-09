@@ -431,3 +431,5 @@ __exportStar(require("./utils/card-icons"), exports);
 __exportStar(require("./utils/gateway-detection"), exports);
 __exportStar(require("./utils/stripe-session"), exports);
 __exportStar(require("./test-utils"), exports);
+// Default export for better bundler compatibility
+exports.default = PaymentGatewayManager;

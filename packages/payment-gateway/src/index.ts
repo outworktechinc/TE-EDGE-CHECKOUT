@@ -601,3 +601,6 @@ export type {
   StripeSessionRequest,
   StripeSessionResponse
 } from "./types";
+
+// Default export for better bundler compatibility
+export default PaymentGatewayManager;

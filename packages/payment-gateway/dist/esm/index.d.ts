@@ -155,4 +155,5 @@ export * from "./utils/gateway-detection";
 export * from "./utils/stripe-session";
 export * from "./test-utils";
 export type { PaymentMethod, PaymentConfiguration, GatewayDetectionResponse, StripeSessionRequest, StripeSessionResponse } from "./types";
+export default PaymentGatewayManager;
 //# sourceMappingURL=index.d.ts.map
