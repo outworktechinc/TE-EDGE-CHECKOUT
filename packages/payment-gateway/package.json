@@ -3,21 +3,23 @@
   "version": "1.0.0",
   "description": "Framework-agnostic payment gateway integration library for Stripe, Braintree, and Authorize.Net",
   "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "npm run clean && npm run build:cjs && npm run build:esm && npm run build:types",
-    "build:cjs": "tsc --module commonjs --outDir dist",
-    "build:esm": "tsc --module esnext --outDir dist/esm && echo '{\"type\":\"module\"}' > dist/esm/package.json",
-    "build:types": "tsc --emitDeclarationOnly --outDir dist",
-    "build:watch": "tsc --watch",
-    "clean": "rimraf dist",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "lint": "eslint src --ext .ts",
-    "lint:fix": "eslint src --ext .ts --fix",
-    "prepublishOnly": "npm run build && npm run test"
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
   },
+"scripts": {
+  "clean": "rimraf dist",
+  "build:cjs": "tsc --project tsconfig.json",
+  "build:esm": "tsc --project tsconfig.esm.json && echo '{\"type\":\"module\"}' > dist/esm/package.json",
+  "build:types": "tsc --emitDeclarationOnly --outDir dist && copy dist\\index.d.ts dist\\esm\\index.d.ts",
+  "build": "npm run clean && npm run build:cjs && npm run build:esm && npm run build:types",
+  "prepublishOnly": "npm run build && npm run test"
+},
   "keywords": [
     "payment",
     "gateway",
@@ -51,6 +53,11 @@
     "@types/jest": "^29.0.0",
     "ts-jest": "^29.0.0"
   },
-  "peerDependencies": {},
+  "peerDependencies": {
+     "typescript": "^5.0.0"
+  },
+  "engines": {
+  "node": ">=18.0.0"
+},
   "dependencies": {}
 }
