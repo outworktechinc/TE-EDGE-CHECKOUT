@@ -1,8 +1,21 @@
 {
-  "name": "@your-org/universal-packages",
+  "name": "te-edge-checkout",
   "version": "1.0.0",
   "description": "Monorepo for universal packages - Payment Gateway, Sentry Integration, Track IDs, and more",
-  "private": true,
+  "main": "packages/payment-gateway/dist/index.js",
+  "types": "packages/payment-gateway/dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "packages/payment-gateway/dist/index.d.ts",
+      "import": "packages/payment-gateway/dist/esm/index.js",
+      "require": "packages/payment-gateway/dist/index.js"
+    },
+    "./payment-gateway": {
+      "types": "packages/payment-gateway/dist/index.d.ts",
+      "import": "packages/payment-gateway/dist/esm/index.js",
+      "require": "packages/payment-gateway/dist/index.js"
+    }
+  },
   "workspaces": [
     "packages/*"
   ],

@@ -46,15 +46,20 @@ cd your-nextjs-project
 npm install ../payment-gateway-library
 ```
 
+**Or if from GitHub:**
+```bash
+npm install te-edge-checkout@github:outworktechinc/TE-EDGE-CHECKOUT#main
+```
+
 **Or if published to NPM:**
 ```bash
-npm install @your-org/payment-gateway
+npm install te-edge-checkout
 ```
 
 ### Step 2: Verify Installation
 
 ```bash
-npm list @your-org/payment-gateway
+npm list te-edge-checkout
 ```
 
 You should see the package listed.
@@ -104,7 +109,7 @@ Create `lib/payment-adapter.ts`:
 
 ```typescript
 // lib/payment-adapter.ts
-import { EnvironmentAdapter, GatewayConfig } from '@your-org/payment-gateway';
+import { EnvironmentAdapter, GatewayConfig } from 'te-edge-checkout/payment-gateway';
 
 /**
  * Gateway configuration from environment variables
@@ -177,7 +182,7 @@ Create `lib/payment-context.tsx`:
 'use client';
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { PaymentGatewayManager, PaymentConfiguration } from '@your-org/payment-gateway';
+import { PaymentGatewayManager, PaymentConfiguration } from 'te-edge-checkout/payment-gateway';
 import { nextJsAdapter } from './payment-adapter';
 
 interface PaymentContextType {
@@ -313,7 +318,7 @@ Create `hooks/usePaymentGateway.ts`:
 
 import { useState } from 'react';
 import { usePayment } from '@/lib/payment-context';
-import { CardInput, StripeSessionRequest } from '@your-org/payment-gateway';
+import { CardInput, StripeSessionRequest } from 'te-edge-checkout/payment-gateway';
 
 export function usePaymentGateway() {
   const { manager, config, isLoading, error } = usePayment();
@@ -393,7 +398,7 @@ Create `components/CardInput.tsx`:
 'use client';
 
 import { useState, ChangeEvent } from 'react';
-import { CardInput as CardInputType, validateCard, detectCardBrand, getCardIcon } from '@your-org/payment-gateway';
+import { CardInput as CardInputType, validateCard, detectCardBrand, getCardIcon } from 'te-edge-checkout/payment-gateway';
 import styles from './CardInput.module.css';
 
 interface CardInputProps {
@@ -660,7 +665,7 @@ Create `components/PaymentForm.tsx`:
 
 import { useState } from 'react';
 import { usePaymentGateway } from '@/hooks/usePaymentGateway';
-import { CardInput as CardInputType } from '@your-org/payment-gateway';
+import { CardInput as CardInputType } from 'te-edge-checkout/payment-gateway';
 import CardInput from './CardInput';
 import styles from './PaymentForm.module.css';
 

@@ -44,18 +44,18 @@ This guide provides baby steps to integrate the payment gateway library into you
 
 ```bash
 cd your-angular-project
-npm install ../payment-gateway-library
+npm install te-edge-checkout@github:outworktechinc/TE-EDGE-CHECKOUT#main
 ```
 
 **Or if published to NPM:**
 ```bash
-npm install @your-org/payment-gateway
+npm install te-edge-checkout
 ```
 
 ### Step 2: Verify Installation
 
 ```bash
-npm list @your-org/payment-gateway
+npm list te-edge-checkout
 ```
 
 You should see the package listed.
@@ -145,7 +145,7 @@ Create `src/app/services/payment-adapter.service.ts`:
 // src/app/services/payment-adapter.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { EnvironmentAdapter, GatewayConfig } from '@your-org/payment-gateway';
+import { EnvironmentAdapter, GatewayConfig } from 'te-edge-checkout/payment-gateway';
 import { environment } from '../../environments/environment';
 import { firstValueFrom } from 'rxjs';
 
@@ -285,7 +285,7 @@ import {
   CardInput,
   StripeSessionRequest,
   PaymentEvent
-} from '@your-org/payment-gateway';
+} from 'te-edge-checkout/payment-gateway';
 import { PaymentAdapterService } from './payment-adapter.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -529,7 +529,7 @@ import {
   detectCardBrand,
   getCardIcon,
   CardBrand
-} from '@your-org/payment-gateway';
+} from 'te-edge-checkout/payment-gateway';
 
 @Component({
   selector: 'app-card-input',
@@ -792,7 +792,7 @@ Edit `src/app/components/payment-form/payment-form.component.ts`:
 // src/app/components/payment-form/payment-form.component.ts
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PaymentGatewayService } from '../../services/payment-gateway.service';
-import { CardInput, PaymentConfiguration } from '@your-org/payment-gateway';
+import { CardInput, PaymentConfiguration } from 'te-edge-checkout/payment-gateway';
 
 @Component({
   selector: 'app-payment-form',
@@ -1502,7 +1502,7 @@ Edit `src/app/pages/test-payment/test-payment.component.ts`:
 // src/app/pages/test-payment/test-payment.component.ts
 import { Component, OnInit } from '@angular/core';
 import { PaymentGatewayService } from '../../services/payment-gateway.service';
-import { PaymentConfiguration } from '@your-org/payment-gateway';
+import { PaymentConfiguration } from 'te-edge-checkout/payment-gateway';
 
 @Component({
   selector: 'app-test-payment',
@@ -1581,7 +1581,7 @@ ng test
 
 ## Troubleshooting
 
-### Issue: "Cannot find module '@your-org/payment-gateway'"
+### Issue: "Cannot find module 'te-edge-checkout/payment-gateway'"
 
 **Solution:**
 ```bash
@@ -1589,7 +1589,7 @@ ng test
 npm install ../payment-gateway-library --save
 
 # Or if published
-npm install @your-org/payment-gateway
+npm install te-edge-checkout
 ```
 
 ### Issue: "APP_INITIALIZER not working"
